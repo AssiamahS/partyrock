@@ -6,7 +6,7 @@ options:
 settings:
   base:
     DEVELOPMENT_TEAM: QGMAWHX827
-    MARKETING_VERSION: 0.1.7
+    MARKETING_VERSION: 0.1.8
     CURRENT_PROJECT_VERSION: 1
     SWIFT_VERSION: "5.9"
 targets:
@@ -24,7 +24,7 @@ targets:
         UILaunchScreen: {}
         UIBackgroundModes: [audio]
         NSAppTransportSecurity:
-          NSAllowsArbitraryLoads: true
+          NSAllowsArbitraryLoadsInWebContent: true
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationLandscapeLeft

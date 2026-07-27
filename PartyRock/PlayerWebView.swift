@@ -12,7 +12,7 @@ final class PlayerWebViewStore: NSObject, ObservableObject, WKNavigationDelegate
         config.allowsInlineMediaPlayback = true
         config.allowsPictureInPictureMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
-        config.preferences.setValue(true, forKey: "fullScreenEnabled")
+        config.preferences.isElementFullscreenEnabled = true
         webView = WKWebView(frame: .zero, configuration: config)
         webView.allowsBackForwardNavigationGestures = true
         // mobile UA so youtube.com serves the touch player
