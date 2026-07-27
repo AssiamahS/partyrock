@@ -16,23 +16,38 @@ struct BrowseView: View {
     @StateObject private var api = SetlistAPI()
     @State private var urlText = ""
     @State private var showSettings = false
-    @AppStorage("serverURL") private var serverURL = "https://saints-macbook-air.tail40af16.ts.net"
+    @State private var showURLBar = false
+    @AppStorage("serverURL") private var serverURL = "http://saints-macbook-air.tail40af16.ts.net:8787"
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 8) {
-                TextField("Search or paste a YouTube link", text: $urlText)
-                    .textFieldStyle(.roundedBorder)
-                    .keyboardType(.webSearch)
-                    .autocorrectionDisabled()
-                    .textInputAutocapitalization(.never)
-                    .onSubmit { player.load(urlString: urlText) }
-                Button { showSettings = true } label: {
-                    Image(systemName: "gearshape")
+            if showURLBar {
+                HStack(spacing: 8) {
+                    TextField("Search or paste a YouTube link", text: $urlText)
+                        .textFieldStyle(.roundedBorder)
+                        .keyboardType(.webSearch)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                        .onSubmit { player.load(urlString: urlText) }
+                    Button { showSettings = true } label: {
+                        Image(systemName: "gearshape")
+                    }
                 }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .transition(.move(edge: .top).combined(with: .opacity))
             }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
+            Button {
+                withAnimation(.snappy(duration: 0.2)) { showURLBar.toggle() }
+            } label: {
+                Image(systemName: showURLBar ? "chevron.up" : "chevron.down")
+                    .font(.caption2.bold())
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 3)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
 
             PlayerWebView(store: player)
 

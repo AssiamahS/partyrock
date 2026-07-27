@@ -13,7 +13,7 @@ final class SetlistAPI: ObservableObject {
     }
 
     var baseURL: String {
-        UserDefaults.standard.string(forKey: "serverURL") ?? "https://saints-macbook-air.tail40af16.ts.net"
+        UserDefaults.standard.string(forKey: "serverURL") ?? "http://saints-macbook-air.tail40af16.ts.net:8787"
     }
 
     private var pollTask: Task<Void, Never>?

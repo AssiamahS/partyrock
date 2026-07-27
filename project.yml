@@ -6,7 +6,7 @@ options:
 settings:
   base:
     DEVELOPMENT_TEAM: QGMAWHX827
-    MARKETING_VERSION: 1.1.1
+    MARKETING_VERSION: 1.1.2
     CURRENT_PROJECT_VERSION: 1
     SWIFT_VERSION: "5.9"
 targets:
@@ -17,7 +17,7 @@ targets:
     info:
       path: PartyRock/Info.plist
       properties:
-        CFBundleDisplayName: PartyRock
+        CFBundleDisplayName: PartyHop
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         ITSAppUsesNonExemptEncryption: false
@@ -25,6 +25,10 @@ targets:
         UIBackgroundModes: [audio]
         NSAppTransportSecurity:
           NSAllowsArbitraryLoadsInWebContent: true
+          NSExceptionDomains:
+            tail40af16.ts.net:
+              NSIncludesSubdomains: true
+              NSExceptionAllowsInsecureHTTPLoads: true
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationLandscapeLeft
