@@ -177,39 +177,11 @@ struct SetDetailView: View {
             if let detail {
                 List {
                     if let path = detail.crate?.path {
-                        Section {
-                            Label {
-                                Text(path)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            } icon: {
-                                Image(systemName: "shippingbox.fill")
-                                    .foregroundStyle(.purple)
-                            }
-                        } header: {
-                            Text("In your Serato crates")
-                        }
+                        crateSection(path: path)
                     }
                     Section("Tracks — set order") {
                         ForEach(Array(detail.items.enumerated()), id: \.offset) { i, track in
-                            HStack(spacing: 10) {
-                                Text("\(track.n ?? i + 1)")
-                                    .font(.caption.monospacedDigit())
-                                    .foregroundStyle(.secondary)
-                                    .frame(width: 24, alignment: .trailing)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(track.display)
-                                        .font(.subheadline)
-                                        .lineLimit(2)
-                                    if let cue = track.cue {
-                                        Text("in the set at \(cue)")
-                                            .font(.caption2)
-                                            .foregroundStyle(.tertiary)
-                                    }
-                                }
-                                Spacer()
-                                statusIcon(track.status)
-                            }
+                            TrackRow(index: i, track: track)
                         }
                     }
                 }
@@ -228,9 +200,50 @@ struct SetDetailView: View {
         }
     }
 
+    private func crateSection(path: String) -> some View {
+        Section {
+            Label {
+                Text(path)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } icon: {
+                Image(systemName: "shippingbox.fill")
+                    .foregroundStyle(.purple)
+            }
+        } header: {
+            Text("In your Serato crates")
+        }
+    }
+}
+
+private struct TrackRow: View {
+    let index: Int
+    let track: SetTrack
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Text("\(track.n ?? index + 1)")
+                .font(.caption.monospacedDigit())
+                .foregroundStyle(.secondary)
+                .frame(width: 24, alignment: .trailing)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(track.display)
+                    .font(.subheadline)
+                    .lineLimit(2)
+                if let cue = track.cue {
+                    Text("in the set at \(cue)")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                }
+            }
+            Spacer()
+            statusIcon
+        }
+    }
+
     @ViewBuilder
-    private func statusIcon(_ status: String?) -> some View {
-        switch status ?? "" {
+    private var statusIcon: some View {
+        switch track.status ?? "" {
         case "done":
             Image(systemName: "arrow.down.circle.fill").foregroundStyle(.green)
         case "downloading", "queued":

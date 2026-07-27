@@ -2,11 +2,11 @@ name: PartyRock
 options:
   bundleIdPrefix: com.sly
   deploymentTarget:
-    iOS: "16.0"
+    iOS: "17.0"
 settings:
   base:
     DEVELOPMENT_TEAM: QGMAWHX827
-    MARKETING_VERSION: 0.1.10
+    MARKETING_VERSION: 1.1.1
     CURRENT_PROJECT_VERSION: 1
     SWIFT_VERSION: "5.9"
 targets:
