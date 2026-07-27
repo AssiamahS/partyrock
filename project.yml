@@ -6,7 +6,7 @@ options:
 settings:
   base:
     DEVELOPMENT_TEAM: QGMAWHX827
-    MARKETING_VERSION: 0.1.9
+    MARKETING_VERSION: 0.1.10
     CURRENT_PROJECT_VERSION: 1
     SWIFT_VERSION: "5.9"
 targets:

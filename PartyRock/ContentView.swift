@@ -1,6 +1,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    var body: some View {
+        TabView {
+            BrowseView()
+                .tabItem { Label("Rock", systemImage: "play.rectangle.fill") }
+            LibraryView()
+                .tabItem { Label("Library", systemImage: "music.note.list") }
+        }
+    }
+}
+
+struct BrowseView: View {
     @StateObject private var player = PlayerWebViewStore()
     @StateObject private var api = SetlistAPI()
     @State private var urlText = ""

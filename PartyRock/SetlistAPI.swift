@@ -17,9 +17,11 @@ final class SetlistAPI: ObservableObject {
     }
 
     private var pollTask: Task<Void, Never>?
+    private var sourceURL: String = ""
 
     func setlistIt(videoURL: String, setName: String) {
         pollTask?.cancel()
+        sourceURL = videoURL
         phase = .resolving
         statusLine = "Resolving tracklist…"
         pollTask = Task { await run(videoURL: videoURL, setName: setName) }
@@ -73,7 +75,8 @@ final class SetlistAPI: ObservableObject {
             self.phase = .downloading
             self.statusLine = "Downloading \(tracks.count) tracks…"
         }
-        let job = try await post("/api/download", ["name": setName, "tracks": tracks])
+        let job = try await post("/api/download",
+                                 ["name": setName, "tracks": tracks, "source_url": sourceURL])
         guard let id = job["id"] as? String else { throw err("download start failed") }
         while !Task.isCancelled {
             try await Task.sleep(nanoseconds: 5_000_000_000)
