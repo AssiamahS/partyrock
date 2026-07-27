@@ -13,10 +13,11 @@ final class PlayerWebViewStore: NSObject, ObservableObject, WKNavigationDelegate
         config.allowsPictureInPictureMediaPlayback = true
         config.mediaTypesRequiringUserActionForPlayback = []
         config.preferences.isElementFullscreenEnabled = true
+        // keep the real WebKit UA and just add the Safari token — a frozen
+        // full-UA spoof trips YouTube's "An error occurred" playback check
+        config.applicationNameForUserAgent = "Version/26.0 Mobile/15E148 Safari/604.1"
         webView = WKWebView(frame: .zero, configuration: config)
         webView.allowsBackForwardNavigationGestures = true
-        // mobile UA so youtube.com serves the touch player
-        webView.customUserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
         super.init()
         webView.navigationDelegate = self
         load(urlString: "https://m.youtube.com")
