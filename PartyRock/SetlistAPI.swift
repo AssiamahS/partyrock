@@ -37,6 +37,16 @@ final class SetlistAPI: ObservableObject {
         do {
             let resolved = try await post("/api/resolve", ["url": videoURL])
             let type = resolved["type"] as? String ?? ""
+            // the page title races the SPA ("YouTube" until the watch page
+            // settles) — the server's resolved title is the real set name
+            var setName = setName
+            if let resolvedTitle = (resolved["title"] as? String)?
+                    .trimmingCharacters(in: .whitespacesAndNewlines),
+               !resolvedTitle.isEmpty {
+                setName = resolvedTitle
+            } else if setName.isEmpty || setName == "YouTube" {
+                setName = "PartyHop Set"
+            }
             if type == "tracklist", let tracks = resolved["tracks"] as? [[String: Any]], !tracks.isEmpty {
                 try await download(setName: setName, tracks: tracks)
             } else if resolved["can_shazam"] as? Bool == true {
