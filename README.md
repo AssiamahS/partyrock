@@ -1,5 +1,7 @@
 # PartyRock
 
+**Install:** open [assiamahs.github.io/partyrock/install.html](https://assiamahs.github.io/partyrock/install.html) in Safari on your iPhone.
+
 YouTube surfing + PiP on the phone, one button to crate the whole set on the Mac.
 
 Browse YouTube in-app (keeps playing in the background / PiP like Tube-PiP),
